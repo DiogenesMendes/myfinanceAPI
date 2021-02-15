@@ -1,6 +1,7 @@
 package com.diogeMendes.personalFinance.service.impl;
 
 import com.diogeMendes.personalFinance.exception.BusinessExeception;
+import com.diogeMendes.personalFinance.model.enums.EntriesType;
 import org.springframework.transaction.annotation.Transactional;
 import com.diogeMendes.personalFinance.model.entity.Entries;
 import com.diogeMendes.personalFinance.model.enums.EntriesStatus;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class EntriesServiceImpl implements EntriesService {
@@ -75,7 +77,7 @@ public class EntriesServiceImpl implements EntriesService {
         if(entries.getYear().equals(null) || entries.getYear().toString().length() != 4){
             throw new BusinessExeception("inform a valid year");
         }
-        if (entries.getUser().equals(null) || entries.getUser().getId().equals(null)){
+        if (entries.getUserId().equals(null) || entries.getUserId().getId().equals(null)){
             throw new BusinessExeception("inform a valid user");
         }
         if (entries.getValue().equals(null) || entries.getValue().compareTo(BigDecimal.ZERO) < 1){
@@ -84,5 +86,25 @@ public class EntriesServiceImpl implements EntriesService {
         if (entries.getEntriesType().equals(null)){
             throw new BusinessExeception("inform a valid entries type");
         }
+    }
+
+
+    @Override
+    public Optional<Entries> getById(Long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public BigDecimal getBalanceByEntriesAndUser(Long id) {
+        BigDecimal  revenue = repository.getBalance(id, EntriesType.REVENUE, EntriesStatus.PAID);
+        BigDecimal  expense = repository.getBalance(id, EntriesType.EXPENSE, EntriesStatus.PAID);
+
+        if(revenue == null){
+            revenue = BigDecimal.ZERO;
+        }
+        if (expense == null){
+            expense = BigDecimal.ZERO;
+        }
+        return  revenue.subtract(expense);
     }
 }

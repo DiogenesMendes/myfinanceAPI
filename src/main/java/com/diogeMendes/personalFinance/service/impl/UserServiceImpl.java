@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
             throw new BusinessExeception("there is already a user with this registered email");
         }
     }
+
+    @Override
+    public Optional<User> getUserById(Long id) {
+        return repository.findById(id);
+    }
 }

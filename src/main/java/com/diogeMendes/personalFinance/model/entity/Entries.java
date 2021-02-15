@@ -18,14 +18,18 @@ import javax.persistence.Table;
 
 import com.diogeMendes.personalFinance.model.enums.EntriesStatus;
 import com.diogeMendes.personalFinance.model.enums.EntriesType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @Entity
 @Table(name = "expensePost")
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Entries {
 	
 	@Id
@@ -44,7 +48,7 @@ public class Entries {
 	
 	@ManyToOne
 	@JoinColumn(name ="id_user")
-	private User user;
+	private User userId;
 	
 	@Column(name = "value")
 	private BigDecimal value; 
@@ -56,10 +60,10 @@ public class Entries {
 	
 	@Column(name = "type")
 	@Enumerated(value = EnumType.STRING)
-	private EntriesType EntriesType;
+	private EntriesType entriesType;
 	
 	@Column(name = "status")
 	@Enumerated(value = EnumType.STRING)
-	private EntriesStatus EntriesStatus;
+	private EntriesStatus entriesStatus;
 
 }
