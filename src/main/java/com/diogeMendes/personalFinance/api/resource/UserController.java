@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
-@ControllerAdvice
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
@@ -37,7 +36,7 @@ public class UserController {
                 }
         }
 
-        @GetMapping("/authenticate")
+        @PostMapping("/authenticate")
         public ResponseEntity authenticate (@RequestBody UserDTO dto){
                 User entity = modelMapper.map(dto, User.class);
                 try{

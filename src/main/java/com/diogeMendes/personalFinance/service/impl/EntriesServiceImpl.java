@@ -68,22 +68,22 @@ public class EntriesServiceImpl implements EntriesService {
 
     @Override
     public void validateEntries(Entries entries) {
-        if(entries.getDescription().isEmpty() || entries.getDescription().trim().equals("")){
+        if(entries.getDescription() == null || entries.getDescription().trim().equals("")){
             throw new BusinessExeception("enter a valid description");
         }
-        if(entries.getMount().equals(null) || entries.getMount() < 1 || entries.getMount() > 12){
+        if(entries.getMount() == null || entries.getMount() < 1 || entries.getMount() > 12){
             throw new BusinessExeception("inform a valid month");
         }
-        if(entries.getYear().equals(null) || entries.getYear().toString().length() != 4){
+        if(entries.getYear() == null || entries.getYear().toString().length() != 4){
             throw new BusinessExeception("inform a valid year");
         }
-        if (entries.getUserId().equals(null) || entries.getUserId().getId().equals(null)){
+        if (entries.getUserId() == null  || entries.getUserId().getId() == null){
             throw new BusinessExeception("inform a valid user");
         }
-        if (entries.getValue().equals(null) || entries.getValue().compareTo(BigDecimal.ZERO) < 1){
-            throw new BusinessExeception("iform a valid value");
+        if (entries.getValue() == null  || entries.getValue().compareTo(BigDecimal.ZERO) < 1){
+            throw new BusinessExeception("inform a valid value");
         }
-        if (entries.getEntriesType().equals(null)){
+        if (entries.getEntriesType() == null ){
             throw new BusinessExeception("inform a valid entries type");
         }
     }

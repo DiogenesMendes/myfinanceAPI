@@ -1,5 +1,6 @@
 package com.diogeMendes.personalFinance.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class User {
 	private String email;
 	
 	@Column(name = "password")
+	@JsonIgnore
 	private String password;
 
 }
