@@ -41,8 +41,8 @@ public class EntriesDTO {
     private LocalDate localDate;
 
     @NotEmpty
-    private String EntriesType;
+    private String entriesType;
 
     @NotEmpty
-    private String EntriesStatus;
+    private String entriesStatus;
 }

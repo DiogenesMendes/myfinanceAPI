@@ -85,7 +85,14 @@ public class EntriesController {
 
     }
 
-    @PutMapping("{id}/update-status/")
+    @GetMapping("{id}")
+    public ResponseEntity getEntries( @PathVariable("id") Long id ) {
+        return service.getById(id)
+                .map( entity -> new  ResponseEntity(modelMapper.map(entity, EntriesDTO.class), HttpStatus.OK) )
+                .orElseGet( () -> new ResponseEntity(HttpStatus.NOT_FOUND) );
+    }
+
+    @PutMapping("{id}/update-status")
     public ResponseEntity updateStatus( @PathVariable("id") Long id ,@RequestBody UpdateStatusDTO dto){
         return service.getById(id).map( entries -> {
             EntriesStatus status =  EntriesStatus.valueOf(dto.getStatus());
